@@ -1,0 +1,44 @@
+version: "3.11"
+
+services:
+  nginx:
+    restart: always
+    build:
+        context: ./nginx
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"    
+    ports:
+        - "8080:80" # port exposed to outside world. 
+        - "8443:443" # <--- add this line
+        
+    volumes:
+        - ./persistentdata/certbot/conf:/etc/letsencrypt # <--here
+        - ./persistentdata/certbot/www:/var/www/certbot
+        - ./persistentdata/static:/var/www/static
+        - ./persistentdata/media:/var/www/media
+
+  django-backend:
+    restart: always
+    build:
+      context: ./django-backend # django service folder
+    image: djangobackend
+    
+    volumes:
+        - ./persistentdata/static:/var/www/static # <--here
+        - ./persistentdata/media:/var/www/media # <--here
+        - ./persistentdata/queen_cosmo_cache:/var/www/queen_cosmo_cache
+    # ../root/deploy-test/django-backend/src
+      
+  postgresql-db:
+    restart: always
+    image: postgres:13-alpine
+    volumes:
+        - ./persistentdata/db:/var/lib/postgresql/data
+    env_file: 
+        - ./postgresql-db/.pg-env # why - see the next step    
+
+  certbot:
+    image: certbot/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    volumes:
+        - ./persistentdata/certbot/conf:/etc/letsencrypt # <--here
+        - ./persistentdata/certbot/www:/var/www/certbot

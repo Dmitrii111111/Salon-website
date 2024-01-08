@@ -1,0 +1,25 @@
+{% extends 'saloon/index.html' %}
+{% load static %}
+{% block content %}
+
+
+    <section id="certificates" class="certificates">
+        <div class="container">
+            <h6 class="text_certificates">Queen Cosmo Zeya</h6>
+            <a href="{% url 'home' %}">На главную</a>
+
+
+            <div class="flex-doc">
+                <h2>Сертификаты</h2>
+
+                <div class="documentation-flex">
+                    {% for img in Certificat %}
+                    <img class="documentimg" src="{{ img.image.url }}" alt="certificates">
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}

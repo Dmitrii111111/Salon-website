@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru RU">
+<head>
+    <meta name="google-site-verification=g7AJwOxllq33ao1YEk4Uw9m9LEIVqPGcK5cv1UimWUo"/>
+    <meta name="yandex-verification" content="8bf8ecacb0194edd"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="{{ meta }}">
+    <meta name="keywords" content="салон красоты зея, сайт, увеличение губ, ,ботокс, лифтинг, Депиляция, ультразвуковая чистка лица">
+
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Салон красоты в городе Зея: большой выбор услуг для лица, тела, бровей. Знаем все о красоте!" />
+    <meta property="og:url" content="{% url 'home' %}" />
+    <meta property="og:site_name" content="Студия Queen Cosmo" />
+
+    <meta property="og:image" content="https://queen-cosmo.ru/media/photos/logo/logo-500x500.jpg" />
+    <meta property="og:image:secure_url" content="https://queen-cosmo.ru/media/photos/logo/logo-500x500.jpg" />
+
+
+    <title>{{title}}</title>
+    <link rel="icon" type="image/svg+xml" href="https://queen-cosmo.ru/static/saloon/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link type="text/css" href="{% static 'saloon/css/styles.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'saloon/css/adaptation.css' %}" rel="stylesheet">
+    <link rel="shortcot icon" href="{% static 'saloon/images/logo.png' %}">
+    
+        <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    
+       ym(96029582, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true
+       });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/96029582" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    
+</head>
+<body itemscope itemtype="https://schema.org/BeautySalon">
+
+    {% block content %}
+    {% load cache %}
+    <!-- Главная -->
+    {% cache 500 header %}
+    <header id="header" class="header">
+        <div class="container">
+            <div class="nav">
+                <div style="display: flex; align-items: center;">
+                    <img src="{% static 'saloon/images/logo.png' %}"
+                         alt="Queen Cosmo" class="logo" itemprop="logo">
+                    <a class="dop_log" href="{% url 'home' %}" itemprop="name">Queen Cosmo</a>
+                </div>
+
+                <ul class="menu" itemprop="mainEntityOfPage" itemscope itemtype="https://schema.org/SiteNavigationElement">
+                    {% for m in menu %}
+                    <li itemprop="name">
+                        {% if m == "О нас" %}
+                            <a href="#about" itemprop="url">{{ m }}</a>
+                        {% elif m == "Услуги" %}
+                            <a href="#catalog" itemprop="url">{{ m }}</a>
+                        {% elif m == "Прайс" %}
+                            <a href="#price" itemprop="url">{{ m }}</a>
+                        {% elif m == "Галерея" %}
+                            <a href="#whehGalleri" itemprop="url">{{ m }}</a>
+                        {% else %}
+                            <a href="#footer" itemprop="url">{{ m }}</a>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                <button class="menu-open" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">
+                    <img src="{% static 'saloon/images/menu_open.svg' %}" alt="Open menu">
+                </button>
+            </div>
+            <div class="offer">
+                <h1 itemprop="name">Студия красоты Алены Ковалевой</h1>
+                    <p>
+                        {% for txt in content %}
+                            {% if txt.id == 1 %}
+                                <span itemprop="description">{{ txt.content }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                <a href="https://wa.me/+79145918281" class="btn">Записаться</a>
+            </div>
+        </div>
+    </header>
+    <!-- Контент секции "Почему мы" -->
+    <div itemscope itemtype="http://schema.org/WebPage">
+        <section id="about" class="about">
+            <div class="container">
+                <div class="whyh2"><h2 itemprop="about">Почему выбирают нас</h2></div>
+                {% for txt in content %}
+                <div class="flex-container">
+                    {% if txt.id == 2 %}
+                    <img src="{% static 'saloon/images/experience.png' %}"
+                         alt="professional experience" class="logo_experience">
+                    <div class="text one">
+                        <h6 itemprop="name">Профессиональный опыт</h6>
+                        <p itemprop="description">{{ txt }}</p>
+                    </div>
+                    {% elif txt.id == 3 %}
+                    <img src="{% static 'saloon/images/podxod.png' %}"
+                         alt="individual approach" class="logo_approach">
+                    <div class="text">
+                        <h6 itemprop="name">Индивидуальный подход</h6>
+                        <p itemprop="description">{{ txt }}</p>
+                    </div>
+                    {% elif txt.id == 4 %}
+                    <img src="{% static 'saloon/images/product.png' %}"
+                         alt="quality materials" class="logo_approach logo_app">
+                    <div class="textmat">
+                        <h6 itemprop="name">Качественные материалы</h6>
+                        <p itemprop="description">{{ txt }}</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Контент секции "О нас" -->
+    <div class="container">
+            <div class="wheh3">
+                <h2>О нас</h2>
+            </div>
+    </div>
+    <div itemscope itemtype="http://schema.org/AboutPage">
+        <section id="about2" class="about2">
+            <div class="container">
+                <div class="o_nas">
+                    {% for txt in content %}
+                    {% if txt.id == 5 %}
+                    <p itemprop="description">{{ txt }}</p>
+                    {% elif txt.id == 6 %}
+                    <p itemprop="description" id="center">{{ txt }}</p>
+                    {% elif txt.id == 7 %}
+                    <p itemprop="description">{{ txt }}</p>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </div>
+    {% endcache %}
+    <!-- Контент секции "Каталог" -->
+    <section id="catalog" class="catalog">
+        <div class="container">
+            <div itemscope itemtype="https://schema.org/ItemList">
+                <h2 itemprop="name">Каталог услуг</h2>
+                <link itemprop="itemListOrder" href="https://schema.org/ItemListOrderDescending" />
+                <div class="flex-item-container">
+                    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+                        <a href="#peeling" class="flex_btn item-1" itemprop="url">
+                            <span class="txt_" itemprop="name">Пилинг</span>
+                        </a>
+                    </div>
+                    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+                        <a href="#price" class="flex_btn  item-2" itemprop="url">
+                            <span class="txt_" itemprop="name">Аппаратная терапия</span>
+                        </a>
+                    </div>
+                    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+                        <a href="#mechanical" class="flex_btn item-3" itemprop="url">
+                            <span class="txt_mex" itemprop="name">Механическая чистка лица</span>
+                        </a>
+                    </div>
+                    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+                        <a href="#price" class="flex_btn item-4" itemprop="url">
+                            <span class="txt_mex" itemprop="name">Инъекционная терапия</span>
+                        </a>
+                    </div>
+                    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+                        <a href="#brows" class="flex_btn item-5" itemprop="url">
+                            <span class="txt_mex" itemprop="name">Окрашивание и оформление бровей</span>
+                        </a>
+                    </div>
+                    <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Service">
+                        <a href="#depilation" class="flex_btn item-6" itemprop="url">
+                            <span class="txt_" itemprop="name">Депиляция</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контент секции "Прайс-лист" -->
+    <section id="price" class="price" itemscope itemtype="http://schema.org/ItemList">
+        <div class="container">
+            <h2 itemprop="name">Прайс-лист</h2>
+            <div class="liniy"></div>
+
+        {% for category in categories %}
+            <h3>{{ category.name }}</h3>
+            {% for subcategory in category.subcategories.all %}
+            <div class="table-wrapper">
+              <table class="tables">
+                <tr>
+                   {% if subcategory.name == "Пилинг" %}
+                      <td id="peeling" itemprop="name">{{ subcategory.name }}</td>
+                      <td id="btn1" class="pluscross plus">+</td>
+                   {% elif subcategory.name == "Депиляция" %}
+                      <td id="depilation" itemprop="name">{{ subcategory.name }}</td>
+                      <td id="btn2" class="pluscross plus">+</td>
+                   {% elif subcategory.name == "Механическая чистка лица" %}
+                      <td id="mechanical" itemprop="name">{{ subcategory.name }}</td>
+                      <td id="btn3" class="pluscross plus">+</td>
+                   {% elif subcategory.name == "Оформление бровей" %}
+                      <td id="brows" itemprop="name">{{ subcategory.name }}</td>
+                      <td id="btn4" class="pluscross plus">+</td>
+                   {% else %}
+                      <td itemprop="name">{{ subcategory.name }}</td>
+                      <td class="pluscross plus">+</td>
+                   {% endif %}
+                </tr>
+              </table>
+                  <table class="hiddenTable tables hidden" itemscope itemtype="http://schema.org/Service">
+                    {% for pricelist in subcategory.pricelist_set.all %}
+                    <tr>
+                          <td itemprop="name">{{ pricelist.service_title }}</td>
+
+                          {% if pricelist.max_price %}
+
+                          <td class="cent">
+                              <div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer">
+                                  <meta itemprop="priceCurrency" content="RUB">
+                                  <link itemprop="availability" href="http://schema.org/InStock">
+                                  от <span itemprop="lowPrice">{{ pricelist.min_price }}</span> до <span itemprop="highPrice">{{ pricelist.max_price }}</span> ₽
+                              </div>
+                          </td>
+
+                          {% else %}
+
+                          <td class="cent">
+                              <div itemscope itemtype="http://schema.org/Offer">
+                                  <meta itemprop="priceCurrency" content="RUB">
+                                  <link itemprop="availability" href="http://schema.org/InStock">
+                                  <span itemprop="price">{{ pricelist.min_price }}</span> ₽
+                              </div>
+                          </td>
+
+                            {% endif %}
+
+                    </tr>
+                    {% endfor %}
+                  </table>
+            {% endfor %}
+            </div>
+            <div class="liniys"></div>
+        {% endfor %}
+        </div>
+    </section>
+
+    <!-- Контент секции "Галерея" -->
+    <div class="container">
+            <div id="whehGalleri" class="wheh4">
+                <h2>Галерея</h2>
+            </div>
+    </div>
+    <section id="galleries" class="galleries">
+        <div class="container">
+            <h5>Для просмотра работ выберите категорию:</h5>
+            <!-- Адаптивный слайдер -->
+            <div id="carousel">
+                <div id="drag-container">
+                    <div id="spin-container" class="spin-container">
+                        <!-- фото-категории -->
+                        <a class="image-text">
+                            <img src="{% static 'saloon/images/iconsgallery/brow.jpg' %}" alt="brows" class="brows">
+                             <span>Брови</span>
+                        </a>
+
+                        <a class="image-text">
+                            <img src="{% static 'saloon/images/iconsgallery/dep.jpg' %}" alt="depilation" class="depilation">
+                            <span>Депиляция</span>
+                        </a>
+
+                        <a class="image-text">
+                            <img src="{% static 'saloon/images/iconsgallery/aparat.jpg' %}" alt="hardware therapy" class="ap_therapy">
+                            <span>Апаратная терапия</span>
+                        </a>
+
+
+                        <a class="image-text">
+                            <img src="{% static 'saloon/images/iconsgallery/inec.jpg' %}" alt="injection" class="in_therapy">
+                            <span>Инъекционная терапияя</span>
+                        </a>
+
+                        <a class="image-text">
+                            <img src="{% static 'saloon/images/iconsgallery/mexan.jpg' %}" alt="mechanical" class="mechanical">
+                            <span>Механическая чистка лица</span>
+                        </a>
+
+                        <a class="image-text">
+                            <img src="{% static 'saloon/images/iconsgallery/piling.jpg' %}" alt="peeling" class="peeling">
+                            <span>Пилинг</span>
+                        </a>
+
+                        <p>Queen Cosmo</p>
+                    </div>
+                    <div id="ground"></div>
+
+                </div>
+
+            </div>
+            <div class="pop-up">
+                <span>&times;</span>
+                <img id="gallery-image" src="" alt="">
+                <!-- кнопки вперед, назад -->
+                <span class="prev">&#10094;</span>
+                <span class="next">&#10095;</span>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Контент секции "footer" -->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <img src="{% static 'saloon/images/koron.svg' %}"
+                 alt="crown" class="logo_koron">
+            <h6 class="text_footer">Queen Cosmo Zeya</h6>
+            <div class="text_footer_address_2gis">
+
+                <div class="address">
+
+                    <div itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+                        <p itemprop="addressLocality">Город Зея</p>
+                        <div itemprop="streetAddress">
+                            <p>ТЦ Городок, 2 этаж</p>
+                            <p>Микрорайон Светлый</p>
+                        </div>
+                    </div>
+
+                    <div class="mail" itemprop="telephone">
+                        <a href="https://wa.me/+79145918281"><img class="what" src="static/saloon/images/whatsapp.svg" alt="whatsapp"></a>
+                        <a class="tel" href="tel:+79145918281">+7 (914) 591-82-81</a>
+                    </div>
+
+                    <div class="mail">
+                        <a href="https://instagram.com/queen_cosmo.zeya?igshid=OGQ5ZDc2ODk2ZA==" itemprop="sameAs"><img src="static/saloon/images/instag.svg" alt="instagram"></a>
+                        <a class="txt_insta" href="https://instagram.com/queen_cosmo.zeya?igshid=OGQ5ZDc2ODk2ZA==">queen_cosmo.zeya</a>
+                    </div>
+
+                    <div class="mail" itemprop="email">
+                        <a href="mailto:alena_u1988@mail.ru"><img src="static/saloon/images/mail.svg" alt="mail"></a>
+                        <a class="tel" href="mailto:alena_u1988@mail.ru">alena_u1988@mail.ru</a>
+                    </div>
+                </div>
+
+                <div id="map" class="map"></div>
+
+            </div>
+
+            <div class="information">
+
+                <div class="document">
+                    <a id="sertif" href="{% url 'certificates' %}">Сертификаты</a>
+                    <a href="{% url 'policy' %}">Политика конфиденциальности</a>
+                    <span>© 2024 Все права защищены</span>
+                </div>
+
+
+                <div class="inform_right">
+
+                    <span>*Meta признана экстремисткой организацией в России</span>
+                    <span>
+                        Все предложения и цены, указанные на сайте, носят информационный характер и не являются публичной офертой.
+                    </span>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+    <button id="scrollTopBtn"></button>
+    <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
+    <script src="{% static 'saloon/js/main.js' %}"></script>
+
+    <script>let imageGalleries = JSON.parse('{{ image_galleries | safe }}');</script>
+
+    <!-- Google tag (gtag.js) analytics.google.com/analytics/web/provision/#/provision/create -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4JBSJC7T1J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-4JBSJC7T1J');
+    </script>
+</body>
+</html>

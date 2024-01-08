@@ -1,0 +1,49 @@
+{% extends 'saloon/index.html' %}
+
+{% block content %}
+
+    <section id="certificates" class="certificates">
+        <div class="container">
+            <h6 class="text_certificates">Queen Cosmo Zeya</h6>
+            <a href="{% url 'home' %}">На главную</a>
+
+            {% block certificates_wrapper %}
+            {% block certificates %}
+            <div class="politic">
+                <h2>Политика конфиденциальности</h2>
+
+                <p>
+                    В соответствии с Федеральным законом "О персональных данных" от 27.07.2006 N 152-ФЗ
+                </p>
+
+                <p>
+                    Какая информация подлежит сбору и обработки:
+                </p>
+
+                <p>
+                    Сбору подлежат только некоторые действия пользователей, они автоматически сохраняются в журналах сервера:
+                </p>
+
+                <ul>
+                    {% for data in data_collection %}
+                        <li>{{ data.data }}</li>
+                    {% endfor %}
+                </ul>
+
+                <p>
+                    Предоставление данных третьим лицам. Данные могут быть переданы лицам, не связанным с настоящим сайтом, если это необходимо:
+                </p>
+
+                <ul>
+                    {% for reason in third_party_data %}
+                        <li>{{ reason.reason }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endblock %}
+            {% endblock %}
+
+        </div>
+    </section>
+
+{% endblock %}
