@@ -15,6 +15,9 @@ services:
         - ./persistentdata/certbot/www:/var/www/certbot
         - ./persistentdata/static:/var/www/static
         - ./persistentdata/media:/var/www/media
+        
+        - ./persistentdata/robots.txt:/var/www/robots.txt
+        - ./persistentdata/favicon.svg:/var/www/favicon.svg
 
   django-backend:
     restart: always
@@ -26,7 +29,10 @@ services:
         - ./persistentdata/static:/var/www/static # <--here
         - ./persistentdata/media:/var/www/media # <--here
         - ./persistentdata/queen_cosmo_cache:/var/www/queen_cosmo_cache
-    # ../root/deploy-test/django-backend/src
+        
+        - ./persistentdata/robots.txt:/var/www/robots.txt
+        - ./persistentdata/favicon.svg:/var/www/favicon.svg
+        
       
   postgresql-db:
     restart: always
